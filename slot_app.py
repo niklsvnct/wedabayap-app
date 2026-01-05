@@ -2006,7 +2006,7 @@ class AttendanceController:
                 st.info(f"👤 Logged in as: **{user_name}**")
                 # Unique Key for Logout to prevent Duplicate Widget
                 # Kita pakai on_click agar fungsi dijalankan SEBELUM halaman refresh
-            st.button("🚪 Logout", key="logout_btn", on_click=self.handle_logout, use_container_width=True)
+                st.button("🚪 Logout", key="logout_btn", on_click=self.handle_logout, use_container_width=True)
                     self.handle_logout()
                 st.markdown("---")
             
