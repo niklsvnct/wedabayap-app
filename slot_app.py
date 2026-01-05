@@ -1976,8 +1976,16 @@ class AttendanceController:
             st.error(f"Login Gagal: {result}")
 
     def handle_logout(self):
+        """Logic saat tombol Logout ditekan."""
+        # 1. Reset semua session state
         st.session_state['logged_in'] = False
         st.session_state['user_info'] = None
+        
+        # 2. Opsional: Hapus key lain biar bersih total
+        if 'selected_date' in st.session_state:
+            del st.session_state['selected_date']
+            
+        # 3. PAKSA RERUN SEKARANG JUGA
         st.rerun()
 
     def run(self):
@@ -1997,7 +2005,8 @@ class AttendanceController:
             with st.sidebar:
                 st.info(f"👤 Logged in as: **{user_name}**")
                 # Unique Key for Logout to prevent Duplicate Widget
-                if st.button("🚪 Logout", key=f"logout_btn_{uuid.uuid4()}", use_container_width=True):
+                # Kita pakai on_click agar fungsi dijalankan SEBELUM halaman refresh
+            st.button("🚪 Logout", key="logout_btn", on_click=self.handle_logout, use_container_width=True)
                     self.handle_logout()
                 st.markdown("---")
             
